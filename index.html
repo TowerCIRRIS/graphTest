@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graphtest1</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/c3@0.7.20/c3.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/c3@0.7.20/c3.min.js"></script>
+    <script src = "https://d3js.org/d3.v5.min.js"></script>
+
+    <script src="https://thunkable.github.io/webviewer-extension/thunkableWebviewerExtension.js" type="text/javascript"></script>
+
+</head>
+<body>
+
+    <div id="chart"></div>
+
+    <script>
+
+    var chart = c3.generate({
+        data: {
+            columns: [
+                ['Data 1', ],
+                ['Data 2', ],
+            ]
+        },
+        zoom: {
+        enabled: true
+        }
+    });
+
+    setTimeout(function () {
+        chart.load({
+            columns: [
+                ['Data 1', 3, 2, 1, 4, 1, 5, 2, 1, 3, 5, 3, 4],
+            ],
+            names: {'Data 1':'Vitesse'} 
+        });
+    }, 10);
+
+    setTimeout(function () {
+        chart.load({
+            columns: [
+                ['Data 2', 30, 20, 10, 40, 15, 25, 23, 19, 30, 50, 30, 40,10, 15, 20, 30, 20, 10]
+            ],
+            names: {'Data 2':'VCadence'} 
+        });
+    }, 10);
+
+
+
+
+    ThunkableWebviewerExtension.receiveMessage(function(message) {
+
+        var thunkData = JSON.parse(message);
+        var values = thunkData.values;
+        var data1Name = thunkData.data1Name;
+
+      
+         if(data1Name == 'Vitesse')
+         {
+            chart.load({
+            columns: [['Data 1'].concat(values)],
+            names: {'Data 1':data1Name} 
+            });  
+         }   
+
+         if(data1Name == 'Cadence')
+         {
+            chart.load({
+            columns: [['Data 2'].concat(values)],
+            names: {'Data 2':data1Name} 
+            });  
+         }  
+          
+        
+    });
+
+   
+
+
+    </script>
+</body>
+</html>
