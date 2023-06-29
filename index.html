@@ -101,19 +101,18 @@ chart.axis.max({y:160});
          if(data1Name == 'Vitesse')
          {
             chart.load({
-            columns: [['Data 1'].concat(values)],
+            columns: [['Data 1'].concat(data1Values)],
             type: 'spline',
             names: {'Data 1':data1Name}
             });  
 
             chart.axis.max({x:30});
-
          }   
 
          if(data1Name == 'Cadence')
          {
             chart.load({
-            columns: [['Data 2'].concat(values)],
+            columns: [['Data 2'].concat(data2Values)],
             type: 'spline',
             names: {'Data 2':data1Name}
             });  
@@ -122,6 +121,12 @@ chart.axis.max({y:160});
          }  
 
          if(data1Name == 'AxeY')
+         {
+            chart.axis.max({y:values});
+
+         }
+
+         if(data1Name == 'AxeX')
          {
             chart.axis.max({y:values});
 
