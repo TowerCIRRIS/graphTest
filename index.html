@@ -68,7 +68,10 @@
 
             chart.load({
             columns: [['Data 1'].concat(values)],
-            names: {'Data 1':data1Name} 
+            names: {'Data 1':data1Name} ,
+            zoom: {
+                enabled: true
+                }
             });  
          }   
 
@@ -80,7 +83,10 @@
 
             chart.load({
             columns: [['Data 2'].concat(values)],
-            names: {'Data 2':data1Name} 
+            names: {'Data 2':data1Name},
+            zoom: {
+                enabled: true
+                } 
             });  
          }  
           
