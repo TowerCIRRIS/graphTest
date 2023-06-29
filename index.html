@@ -45,7 +45,8 @@
             columns: [
                 ['Data 2', 30, 20, 10, 40, 15, 25, 23, 19, 30, 50, 30, 40,10, 15, 20, 30, 20, 10]
             ],
-            names: {'Data 2':'VCadence'} 
+            names: {'Data 2':'VCadence'},
+            color: {'Data 2':'#000000'}
         });
     }, 10);
 
@@ -61,6 +62,10 @@
       
          if(data1Name == 'Vitesse')
          {
+            chart.unload({
+                    ids: 'Data 1'
+                });
+
             chart.load({
             columns: [['Data 1'].concat(values)],
             names: {'Data 1':data1Name} 
@@ -69,6 +74,10 @@
 
          if(data1Name == 'Cadence')
          {
+            chart.unload({
+                    ids: 'Data 2'
+                });
+
             chart.load({
             columns: [['Data 2'].concat(values)],
             names: {'Data 2':data1Name} 
