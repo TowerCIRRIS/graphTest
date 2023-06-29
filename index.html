@@ -23,7 +23,8 @@
             columns: [
                 ['Data 1', ],
                 ['Data 2', ],
-            ]
+            ],
+            type: 'spline'
         },
         zoom: {
         enabled: true
@@ -68,6 +69,7 @@
 
             chart.load({
             columns: [['Data 1'].concat(values)],
+            type: 'spline',
             names: {'Data 1':data1Name} ,
             zoom: {
                 enabled: true,
@@ -86,6 +88,7 @@
 
             chart.load({
             columns: [['Data 2'].concat(values)],
+            type: 'spline',
             names: {'Data 2':data1Name},
             zoom: {
                 enabled: true,
