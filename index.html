@@ -21,116 +21,159 @@
     var chart = c3.generate({
         data: {
             columns: [
-                ['Data 1', ],
-                ['Data 2', ],
+                ['Data 1', 0],
+                ['Data 2', 0],
             ],
             type: 'spline'
         },
-        axis: {
-            y: {
-                max: 50
-            }
+        point: {
+            show: false
         },
         zoom: {
         enabled: true
+        },
+        axis: {
+            y: {
+                max: 250,
+                min: 0
+            }
         }
     });
 
-    setTimeout(function () {
-        chart.load({
-            columns: [
-                ['Data 1', 3, 2, 1, 4, 1, 5, 2, 1, 3, 5, 3, 4],
-            ],
-            names: {'Data 1':'Vitesse'} ,
-        });
+    // setTimeout(function () {
+    //     chart.load({
+    //         columns: [
+    //             ['Data 1', 3, 2, 1, 4, 1, 5, 2, 1, 3, 5, 3, 4],
+    //         ],
+    //         names: {'Data 1':'TBD'} ,
+    //     });
 
-        chart.axis.max({y:60});
-    }, 2000);
+    //     chart.axis.max({y:60});
+    // }, 2000);
 
-    setTimeout(function () {
+    // setTimeout(function () {
 
-        chart.load({
-            columns: [
-                ['Data 2', 30, 20, 10, 40, 15, 25, 23, 19, 30, 50, 30, 40,10, 15, 20, 30, 20, 10]
-            ],
-            names: {'Data 2':'Cadence'},
-            color: {'Data 2':'#110001'}
-        });
+    //     chart.load({
+    //         columns: [
+    //             ['Data 2', 30, 20, 10, 40, 15, 25, 23, 19, 30, 50, 30, 40,10, 15, 20, 30, 20, 10]
+    //         ],
+    //         names: {'Data 2':'TBD'},
+    //         color: {'Data 2':'#110001'}
+    //     });
 
-        chart.axis.max({y:160});
+    //     chart.axis.max({y:160});
 
-    }, 3000);
+    // }, 3000);
 
     
-    setTimeout(function () {
+    // setTimeout(function () {
 
-        chart.load({
-            columns: [
-                ['Data 2', 30, 20, 10, 40, 15, 25, 23, 19, 30, 50, 30, 40,10, 15, 20, 30, 20, 10,
-                30, 20, 10, 40, 15, 25, 23, 19, 30, 50, 30, 40,10, 15, 20, 30, 20, 10]
-            ]
+    //     chart.load({
+    //         columns: [
+    //             ['Data 2', 30, 20, 10, 40, 15, 25, 23, 19, 30, 50, 30, 40,10, 15, 20, 30, 20, 10,
+    //             30, 20, 10, 40, 15, 25, 23, 19, 30, 50, 30, 40,10, 15, 20, 30, 20, 10]
+    //         ]
             
-        });
+    //     });
 
-        chart.axis.max({y:160});
+    //     chart.axis.max({y:160});
 
-    }, 4000);
+    // }, 4000);
 
-    setTimeout(function () {
+    // setTimeout(function () {
 
-    chart.load({
-        columns: [
-            ['Data 1', 3, 2, 1, 4, 1, 5, 2, 1, 3, 5, 3, 4,
-            3, 2, 1, 4, 1, 5, 2, 1, 3, 5, 3, 4, 3, 2, 1, 4, 1, 5, 2, 1, 3, 5, 3, 4]
-        ]
-    });
+    // chart.load({
+    //     columns: [
+    //         ['Data 1', 3, 2, 1, 4, 1, 5, 2, 1, 3, 5, 3, 4,
+    //         3, 2, 1, 4, 1, 5, 2, 1, 3, 5, 3, 4, 3, 2, 1, 4, 1, 5, 2, 1, 3, 5, 3, 4]
+    //     ]
+    // });
 
-chart.axis.max({y:160});
+// chart.axis.max({y:100});
 
-}, 5000);
+// }, 5000);
 
 
 
     ThunkableWebviewerExtension.receiveMessage(function(message) {
 
         var thunkData = JSON.parse(message);
-        var values = thunkData.values;
-        var data1Name = thunkData.data1Name;
+        //var values = thunkData.values;
+        //var data1Name = thunkData.data1Name;
 
       
-         if(data1Name == 'Vitesse')
-         {
+        if(thunkData.type == 'data')
+        {
+   
             chart.load({
-            columns: [['Data 1'].concat(data1Values)],
-            type: 'spline',
-            names: {'Data 1':data1Name}
+                columns: [
+                    ['Data 1'].concat(thunkData.data1Value),
+                    ['Data 2'].concat(thunkData.data2Value)
+
+                ],
+                type: 'spline',
+                names: {
+                    'Data 1':thunkData.data1Name,
+                    'Data 2':thunkData.data2Name
+                }
             });  
+            //chart.axis.max({x:30});
+          
+        }
 
-            chart.axis.max({x:30});
-         }   
+        if(thunkData.type == 'control')
+        {
+            if(thunkData.data1Type == 'AxeX')
+            {
+                chart.axis.max({y:thunkData.values});
 
-         if(data1Name == 'Cadence')
-         {
-            chart.load({
-            columns: [['Data 2'].concat(data2Values)],
-            type: 'spline',
-            names: {'Data 2':data1Name}
-            });  
+            }
 
-            chart.axis.max({x:30});
-         }  
+            if(thunkData.data1Type == 'AxeY')
+            {
+                chart.axis.max({y:thunkData.values});
 
-         if(data1Name == 'AxeY')
-         {
-            chart.axis.max({y:values});
+            }
 
-         }
+            if(thunkData.data1Type == 'displaySpeed')
+            {
+                if(thunkData.data1Value == 'on')
+                {
+                    chart.show('Data 1');
+                }
+                else
+                {
+                    chart.hide('Data 1');
+                }
 
-         if(data1Name == 'AxeX')
-         {
-            chart.axis.max({y:values});
+                
 
-         }
+            }
+
+            if(thunkData.data1Type == 'displayCadence')
+            {
+                if(thunkData.data1Value == 'on')
+                {
+                    chart.show('Data 2');
+                }
+                else
+                {
+                    chart.hide('Data 2');
+                }
+
+                
+
+            }
+
+            if(thunkData.data1Type == 'unloadGraph')
+            {
+                chart.unload();
+
+            }
+
+        }
+
+        
           
         
     });
