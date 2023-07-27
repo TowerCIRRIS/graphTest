@@ -29,15 +29,15 @@
         point: {
             show: false
         },
-        zoom: {
-        enabled: true
-        },
-        axis: {
-            y: {
-                max: 100,
-                min: 0
-            }
-        }
+        // zoom: {
+        // enabled: true
+        // },
+        // axis: {
+        //      y: {
+        //          max: 100,
+        //          min: 0,
+        //      }
+        //  }
     });
 
     ThunkableWebviewerExtension.receiveMessage(function(message) {
@@ -89,9 +89,7 @@
                 else
                 {
                     chart.hide('Data 1');
-                }
-
-                
+                }  
 
             }
 
@@ -105,21 +103,14 @@
                 {
                     chart.hide('Data 2');
                 }
-
-                
-
             }
 
             if(thunkData.data1Type == 'unloadGraph')
             {
                 chart.unload();
-
             }
 
-        }
-
-        
-          
+        } 
         
     });
 
