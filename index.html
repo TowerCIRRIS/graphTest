@@ -26,18 +26,19 @@
             ],
             type: 'spline'
         },
+         zoom: {
+            enabled: true,
+            rescale: true
+         },
         point: {
             show: false
         },
-        // zoom: {
-        // enabled: true
-        // },
-        // axis: {
-        //      y: {
-        //          max: 100,
-        //          min: 0,
-        //      }
-        //  }
+         axis: {
+              y: {
+                  max: 60,
+                  min: 0,
+              }
+          }
     });
 
     ThunkableWebviewerExtension.receiveMessage(function(message) {
@@ -49,19 +50,19 @@
       
         if(thunkData.type == 'data')
         {
-   
             chart.load({
                 columns: [
                     ['Data 1'].concat(thunkData.data1Value),
                     ['Data 2'].concat(thunkData.data2Value)
-
                 ],
                 type: 'spline',
                 names: {
                     'Data 1':thunkData.data1Name,
                     'Data 2':thunkData.data2Name
                 }
-            });  
+            }); 
+            
+            chart.unzoom();
             //chart.axis.max({x:30});
           
         }
